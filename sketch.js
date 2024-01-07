@@ -5,7 +5,7 @@ function setup() {
   createCanvas(400, 400);
 
   // Generate the flowField
-  flowFieldDensity = 25;
+  flowFieldDensity = 50;
   flowField = generateFlowField(width, height, flowFieldDensity);
 }
 

@@ -3,25 +3,35 @@ function generateFlowField(w, h, d) {
 
   for (let wi = d; wi < w; wi += d) {
     for (let hi = d; hi < h; hi += d) {
-      let v = createVector(wi, hi);
-      ff.push(v)
+      let vp = createVector(wi, hi);
+      let vd = createVector(
+        random(-1, 1),
+        random(-1, 1)
+      );
+
+      ff.push(
+        {
+          pos: vp,
+          dir: vd
+        }
+      )
     }
   }
+
+  console.log(ff);
 
   return ff;
 }
 
 function displayFlowField(ff, l) {
-  ff.forEach(v => {
+  for (const { pos, dir } of ff) {
     strokeWeight(2);
-    point(v.x, v.y);
+    point(pos.x, pos.y);
+
+    // Calculate vector direction
+    const vd = pos.copy().add(dir.copy().setMag(l));
 
     strokeWeight(1);
-    h = v.heading();
-    const vh = createVector(
-      v.x + l * cos(h),
-      v.y + l * sin(h)
-    )
-    line(v.x, v.y, vh.x, vh.y);
-  });
+    line(pos.x, pos.y, vd.x, vd.y);
+  }
 }
